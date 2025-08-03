@@ -1,0 +1,41 @@
+{
+    "name": "ngankt2/laravel-helper",
+    "description": "A Laravel helper package that includes security utilities, field encryption, data casting, and commonly used helper functions.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Ngankt2\\LaravelHelper\\": "src"
+        },
+        "files": [
+            "helper.php",
+            "security_helper.php"
+        ]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ngannv",
+            "email": "ngankt2@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-openssl": "*"
+    },
+    "keywords": [
+        "laravel",
+        "php",
+        "helper",
+        "security",
+        "encryption",
+        "cast",
+        "data protection",
+        "field encryption",
+        "laravel helper",
+        "utility functions",
+        "openssl",
+        "data casting",
+        "global functions"
+    ],
+    "prefer-stable": true
+}
