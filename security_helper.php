@@ -1,6 +1,6 @@
 <?php
 
-use Wiz\Helper\ZiSecurity;
+use Ngankt2\LaravelHelper\ZiSecurity;
 
 if (!function_exists('_hide_string')) {
     function _hide_string($string, $start = 0, $length = 0, $re = '*'): mixed
