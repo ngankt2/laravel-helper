@@ -49,6 +49,261 @@ if (!function_exists('zi_format_currency_vnd')) {
 
 
 
+if (!function_exists('zi_language_name')) {
+
+    function zi_language_name($language_code): string
+    {
+        // Danh sách ánh xạ ngôn ngữ và tên ngôn ngữ
+        $language_names = [
+            'en' => 'English',
+            'vi' => 'Vietnamese',
+            'fr' => 'French',
+            'de' => 'German',
+            'es' => 'Spanish',
+            'it' => 'Italian',
+            'ja' => 'Japanese',
+            'ko' => 'Korean',
+            'zh' => 'Chinese',
+            'ru' => 'Russian',
+            'pt' => 'Portuguese',
+            'ar' => 'Arabic',
+            'he' => 'Hebrew',
+            'id' => 'Indonesian',
+            'th' => 'Thai',
+            'pl' => 'Polish',
+            'nl' => 'Dutch',
+            'sv' => 'Swedish',
+            'tr' => 'Turkish',
+            'cs' => 'Czech',
+            'da' => 'Danish',
+            'no' => 'Norwegian',
+            'fi' => 'Finnish',
+            'el' => 'Greek',
+            'hr' => 'Croatian',
+            'hu' => 'Hungarian',
+            'sk' => 'Slovak',
+            'ro' => 'Romanian',
+            'sr' => 'Serbian',
+            'bg' => 'Bulgarian',
+            'uk' => 'Ukrainian',
+            'bs' => 'Bosnian',
+            'sq' => 'Albanian',
+            'mk' => 'Macedonian',
+            'ms' => 'Malay',
+            'sw' => 'Swahili',
+            'tl' => 'Filipino',
+            'bn' => 'Bengali',
+            'pa' => 'Punjabi',
+            'gu' => 'Gujarati',
+            'ml' => 'Malayalam',
+            'te' => 'Telugu',
+            'mr' => 'Marathi',
+            'ne' => 'Nepali',
+            'si' => 'Sinhala',
+            'lo' => 'Lao',
+            'km' => 'Khmer',
+            'my' => 'Burmese',
+            'eu' => 'Basque',
+            'ca' => 'Catalan',
+            'gl' => 'Galician',
+            'wa' => 'Walloon',
+            'cy' => 'Welsh',
+            '_all' => 'All Languages',
+        ];
+
+        // Kiểm tra xem ngôn ngữ có trong danh sách không, nếu không thì trả về tên mặc định "Unknown"
+        return $language_names[$language_code] ?? 'Unknown Language'; // Mặc định trả về "Unknown Language"
+    }
+}
+
+
+if (!function_exists('zi_language')) {
+
+    function zi_language($language_code): string
+    {
+        return zi_language_icon($language_code).' '.zi_language_name($language_code);
+    }
+}
+
+if (!function_exists('zi_language_icon')) {
+
+    function zi_language_icon($language_code): string
+    {
+        // Danh sách ánh xạ ngôn ngữ và emoji
+        $language_emojis = [
+            'en' => '🇬🇧', // English
+            'vi' => '🇻🇳', // Vietnamese
+            'fr' => '🇫🇷', // French
+            'de' => '🇩🇪', // German
+            'es' => '🇪🇸', // Spanish
+            'it' => '🇮🇹', // Italian
+            'ja' => '🇯🇵', // Japanese
+            'ko' => '🇰🇷', // Korean
+            'zh' => '🇨🇳', // Chinese
+            'ru' => '🇷🇺', // Russian
+            'pt' => '🇵🇹', // Portuguese
+            'ar' => '🇸🇦', // Arabic
+            'he' => '🇮🇱', // Hebrew
+            'id' => '🇮🇩', // Indonesian
+            'th' => '🇹🇭', // Thai
+            'pl' => '🇵🇱', // Polish
+            'nl' => '🇳🇱', // Dutch
+            'sv' => '🇸🇪', // Swedish
+            'tr' => '🇹🇷', // Turkish
+            'cs' => '🇨🇿', // Czech
+            'da' => '🇩🇰', // Danish
+            'no' => '🇳🇴', // Norwegian
+            'fi' => '🇫🇮', // Finnish
+            'el' => '🇬🇷', // Greek
+            'hr' => '🇭🇷', // Croatian
+            'hu' => '🇭🇺', // Hungarian
+            'sk' => '🇸🇰', // Slovak
+            'ro' => '🇷🇴', // Romanian
+            'sr' => '🇷🇸', // Serbian
+            'bg' => '🇧🇬', // Bulgarian
+            'uk' => '🇺🇦', // Ukrainian
+            'bs' => '🇧🇦', // Bosnian
+            'sq' => '🇦🇱', // Albanian
+            'mk' => '🇲🇰', // Macedonian
+            'ms' => '🇲🇾', // Malay
+            'sw' => '🇰🇪', // Swahili
+            'tl' => '🇵🇭', // Filipino
+            'bn' => '🇧🇩', // Bengali
+            'pa' => '🇮🇳', // Punjabi
+            'gu' => '🇮🇳', // Gujarati
+            'ml' => '🇮🇳', // Malayalam
+            'te' => '🇮🇳', // Telugu
+            'mr' => '🇮🇳', // Marathi
+            'ne' => '🇳🇵', // Nepali
+            'si' => '🇱🇰', // Sinhala
+            'lo' => '🇱🇸', // Lao
+            'km' => '🇰🇭', // Khmer
+            'my' => '🇲🇲', // Burmese
+            'eu' => '🇪🇸', // Basque
+            'ca' => '🇪🇸', // Catalan
+            'gl' => '🇪🇸', // Galician
+            'wa' => '🇧🇪', // Walloon
+            'cy' => '🇬🇧', // Welsh
+        ];
+
+        // Kiểm tra xem ngôn ngữ có trong danh sách không, nếu không thì trả về emoji mặc định
+        return $language_emojis[$language_code] ?? '🌍'; // Mặc định trả về emoji của Trái Đất
+    }
+}
+
+if (!function_exists('zi_all_languages')) {
+    /**
+     * Returns an array of all languages with their properties.
+     *
+     * @return array An array of languages, each with code, name, icon, and other properties.
+     */
+    function zi_all_languages(): array
+    {
+        $languages = zi_get_languages();
+        $result = [];
+        foreach ($languages as $code => $properties) {
+            $result[] = [
+                'code' => $code,
+                'name' => $properties['name'],
+                'icon' => $properties['icon'],
+            ];
+        }
+        return $result;
+    }
+}
+
+if (!function_exists('zi_get_languages')) {
+    /**
+     * Returns an array of all languages with their properties.
+     *
+     * @return array An array of languages, each with code, name, and icon.
+     */
+    function zi_get_languages(?array $onlyKeys = null): array
+    {
+        $all = [
+            'en' => ['name' => 'English', 'icon' => '🇬🇧'],
+            'vi' => ['name' => 'Vietnamese', 'icon' => '🇻🇳'],
+            'fr' => ['name' => 'French', 'icon' => '🇫🇷'],
+            'de' => ['name' => 'German', 'icon' => '🇩🇪'],
+            'es' => ['name' => 'Spanish', 'icon' => '🇪🇸'],
+            'it' => ['name' => 'Italian', 'icon' => '🇮🇹'],
+            'ja' => ['name' => 'Japanese', 'icon' => '🇯🇵'],
+            'ko' => ['name' => 'Korean', 'icon' => '🇰🇷'],
+            'zh' => ['name' => 'Chinese', 'icon' => '🇨🇳'],
+            'ru' => ['name' => 'Russian', 'icon' => '🇷🇺'],
+            'pt' => ['name' => 'Portuguese', 'icon' => '🇵🇹'],
+            'ar' => ['name' => 'Arabic', 'icon' => '🇸🇦'],
+            'he' => ['name' => 'Hebrew', 'icon' => '🇮🇱'],
+            'id' => ['name' => 'Indonesian', 'icon' => '🇮🇩'],
+            'th' => ['name' => 'Thai', 'icon' => '🇹🇭'],
+            'pl' => ['name' => 'Polish', 'icon' => '🇵🇱'],
+            'nl' => ['name' => 'Dutch', 'icon' => '🇳🇱'],
+            'sv' => ['name' => 'Swedish', 'icon' => '🇸🇪'],
+            'tr' => ['name' => 'Turkish', 'icon' => '🇹🇷'],
+            'cs' => ['name' => 'Czech', 'icon' => '🇨🇿'],
+            'da' => ['name' => 'Danish', 'icon' => '🇩🇰'],
+            'no' => ['name' => 'Norwegian', 'icon' => '🇳🇴'],
+            'fi' => ['name' => 'Finnish', 'icon' => '🇫🇮'],
+            'el' => ['name' => 'Greek', 'icon' => '🇬🇷'],
+            'hr' => ['name' => 'Croatian', 'icon' => '🇭🇷'],
+            'hu' => ['name' => 'Hungarian', 'icon' => '🇭🇺'],
+            'sk' => ['name' => 'Slovak', 'icon' => '🇸🇰'],
+            'ro' => ['name' => 'Romanian', 'icon' => '🇷🇴'],
+            'sr' => ['name' => 'Serbian', 'icon' => '🇷🇸'],
+            'bg' => ['name' => 'Bulgarian', 'icon' => '🇧🇬'],
+            'uk' => ['name' => 'Ukrainian', 'icon' => '🇺🇦'],
+            'bs' => ['name' => 'Bosnian', 'icon' => '🇧🇦'],
+            'sq' => ['name' => 'Albanian', 'icon' => '🇦🇱'],
+            'mk' => ['name' => 'Macedonian', 'icon' => '🇲🇰'],
+            'ms' => ['name' => 'Malay', 'icon' => '🇲🇾'],
+            'sw' => ['name' => 'Swahili', 'icon' => '🇰🇪'],
+            'tl' => ['name' => 'Filipino', 'icon' => '🇵🇭'],
+            'bn' => ['name' => 'Bengali', 'icon' => '🇧🇩'],
+            'pa' => ['name' => 'Punjabi', 'icon' => '🇮🇳'],
+            'gu' => ['name' => 'Gujarati', 'icon' => '🇮🇳'],
+            'ml' => ['name' => 'Malayalam', 'icon' => '🇮🇳'],
+            'te' => ['name' => 'Telugu', 'icon' => '🇮🇳'],
+            'mr' => ['name' => 'Marathi', 'icon' => '🇮🇳'],
+            'ne' => ['name' => 'Nepali', 'icon' => '🇳🇵'],
+            'si' => ['name' => 'Sinhala', 'icon' => '🇱🇰'],
+            'lo' => ['name' => 'Lao', 'icon' => '🇱🇸'],
+            'km' => ['name' => 'Khmer', 'icon' => '🇰🇭'],
+            'my' => ['name' => 'Burmese', 'icon' => '🇲🇲'],
+            'eu' => ['name' => 'Basque', 'icon' => '🇪🇸'],
+            'ca' => ['name' => 'Catalan', 'icon' => '🇪🇸'],
+            'gl' => ['name' => 'Galician', 'icon' => '🇪🇸'],
+            'wa' => ['name' => 'Walloon', 'icon' => '🇧🇪'],
+            'cy' => ['name' => 'Welsh', 'icon' => '🇬🇧'],
+            '_all' => ['name' => 'All Languages', 'icon' => '🌍'],
+        ];
+
+        if (is_array($onlyKeys)) {
+            return collect($all)->only($onlyKeys)->toArray();
+        }
+
+        return $all;
+    }
+}
+
+if (!function_exists('zi_get_language_labels')) {
+    /**
+     * Trả về mảng [code => "🇻🇳 Vietnamese"] để hiển thị label
+     *
+     * @param array|null $onlyKeys
+     * @return array
+     */
+    function zi_get_language_labels(?array $onlyKeys = null): array
+    {
+        return collect(zi_get_languages($onlyKeys))
+            ->mapWithKeys(fn ($lang, $code) => [
+                $code => trim("{$lang['icon']} {$lang['name']}")
+            ])
+            ->toArray();
+    }
+}
+
+
+
 
 
 
