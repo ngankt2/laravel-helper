@@ -22,8 +22,8 @@ class WizUploadImage extends FileUpload
             function (TemporaryUploadedFile $file) {
                 $name = substr(Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)), 0, 50);
                 $name .= '-'.Str::random(6).'-'.Str::random(6);
+                return Str::of($name.'.'.$file->getClientOriginalExtension())->lower();
 
-                return str($name.'.'.$file->getClientOriginalExtension())->lower();
             },
         )
             ->disk('custom')

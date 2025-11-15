@@ -23,7 +23,7 @@ class WizUploadImageOptimize extends FileUpload
                 $name = substr(Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)), 0, 50);
                 $name .= '-'.Str::random(6).'-'.Str::random(6);
 
-                return str($name.'.'.$file->getClientOriginalExtension())->lower();
+                return Str::of($name.'.'.$file->getClientOriginalExtension())->lower();
             },
         )
             ->disk('custom')
