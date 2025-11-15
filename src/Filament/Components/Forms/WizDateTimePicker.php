@@ -11,9 +11,10 @@ class WizDateTimePicker
     {
         return DateTimePicker::make($field)
             ->native(false)
-            ->format('H:i d/m/Y')
-            ->displayFormat('H:i d/m/Y')
-            ->locale('vi')
-            ->default(Carbon::now()->format('H:i d/m/Y'));
+            ->format('Y/m/d H:i:s')
+            ->displayFormat('d/m/Y H:i:s')
+            ->seconds(true)
+            ->default(Carbon::now()->format('Y/m/d H:i:s'))
+            ->locale('vi');
     }
 }
