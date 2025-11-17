@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Storage;
+
 if (!function_exists('_get_max_upload_support')) {
     /**
      * @param float|int $max is Kilobyte
@@ -21,7 +23,7 @@ if (!function_exists('return_kilobytes')) {
      */
     function return_kilobytes($val): int|string
     {
-        $val  = trim($val);
+        $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
         return match ($last) {
             'g' => (float)$val * 1024 * 1024,
@@ -46,7 +48,6 @@ if (!function_exists('zi_format_currency_vnd')) {
         return number_format($amount, 0, ',', '.');
     }
 }
-
 
 
 if (!function_exists('zi_language_name')) {
@@ -121,7 +122,7 @@ if (!function_exists('zi_language')) {
 
     function zi_language($language_code): string
     {
-        return zi_language_icon($language_code).' '.zi_language_name($language_code);
+        return zi_language_icon($language_code) . ' ' . zi_language_name($language_code);
     }
 }
 
@@ -295,14 +296,29 @@ if (!function_exists('zi_get_language_labels')) {
     function zi_get_language_labels(?array $onlyKeys = null): array
     {
         return collect(zi_get_languages($onlyKeys))
-            ->mapWithKeys(fn ($lang, $code) => [
+            ->mapWithKeys(fn($lang, $code) => [
                 $code => trim("{$lang['icon']} {$lang['name']}")
             ])
             ->toArray();
     }
 }
+if (!function_exists('zi_to_storage_url')) {
 
+    function zi_to_storage_url(?string $path,$disk = 'custom'): ?string
+    {
+        if (!$path) {
+            return null;
+        }
 
+        // Nếu là URL tuyệt đối => trả về luôn
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+
+        // Trả về URL S3
+        return Storage::disk($disk)->url($path);
+    }
+}
 
 
 
