@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('_get_max_upload_support')) {
@@ -304,7 +305,7 @@ if (!function_exists('zi_get_language_labels')) {
 }
 if (!function_exists('zi_to_storage_url')) {
 
-    function zi_to_storage_url(?string $path,$disk = 'custom'): ?string
+    function zi_to_storage_url(?string $path, $disk = 'custom'): ?string
     {
         if (!$path) {
             return null;
@@ -317,6 +318,21 @@ if (!function_exists('zi_to_storage_url')) {
 
         // Trả về URL S3
         return Storage::disk($disk)->url($path);
+    }
+}
+if (!function_exists('zi_get_gravatar_url')) {
+    function zi_get_gravatar_url($email): string
+    {
+        // Trim leading and trailing whitespace from
+        // an email address and force all characters
+        // to lower case
+        $address = strtolower(trim($email));
+
+        // Create an SHA256 hash of the final string
+        $hash = hash('sha256', $address);
+
+        // Grab the actual image URL
+        return 'https://gravatar.com/avatar/' . $hash;
     }
 }
 
