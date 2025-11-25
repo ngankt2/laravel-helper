@@ -7,13 +7,15 @@ use Illuminate\Support\Carbon;
 
 class WizDatePicker
 {
-    public static function make($field): DatePicker
+    public static function make($field,$defaultNow = null): DatePicker
     {
-        return DatePicker::make($field)
+        $datePicker = DatePicker::make($field)
             ->native(false)
-            ->format('d/m/Y')
             ->displayFormat('d/m/Y')
-            ->locale('vi')
-            ->default(Carbon::now()->format('d/m/Y'));
+            ->locale('vi');
+        if ($defaultNow) {
+            $datePicker->default(Carbon::now()->format('d/m/Y'));
+        }
+        return $datePicker;
     }
 }
