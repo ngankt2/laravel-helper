@@ -38,7 +38,7 @@ if (!function_exists('zi_format_currency')) {
 
     function zi_format_currency($amount, $symbol = '₫'): string
     {
-        return number_format($amount, 0, ',', '.') . ' <sup>' . $symbol . '</sup>';
+        return number_format($amount, 0, ',', '.') . ' <sup class="zi-currency-symbol">' . $symbol . '</sup>';
     }
 }
 
