@@ -61,6 +61,35 @@ class ZiDebug
 
 
     // ======================================================================
+    // SEND LARK (Use common filters)
+    // ======================================================================
+    public static function sendMessageToLark(
+        string $larkUrl,
+        string $message,
+    ): array {
+        try {
+            $payload = [
+                'msg_type' => 'text',
+                'content'  => [
+                    'text' => $message,
+                ],
+            ];
+
+            $response = Http::post($larkUrl, $payload)->json();
+
+            return [
+                'success' => true,
+                'lark'    => $response,
+            ];
+
+        } catch (\Throwable $ex) {
+            Log::error("ZiDebug Lark failed: " . $ex->getMessage());
+            return ['success' => false, 'error' => $ex->getMessage()];
+        }
+    }
+
+
+    // ======================================================================
     // SEND TELEGRAM (Use common filters)
     // ======================================================================
     public static function sendErrorToTelegram(
@@ -81,6 +110,35 @@ class ZiDebug
                 [
                     'chat_id'    => $chatId,
                     'text'       => $text,
+                    'parse_mode' => 'Markdown',
+                ]
+            )->json();
+
+            return [
+                'success'  => true,
+                'telegram' => $response,
+            ];
+
+        } catch (\Throwable $ex) {
+            Log::error("ZiDebug Telegram failed: " . $ex->getMessage());
+            return ['success' => false, 'error' => $ex->getMessage()];
+        }
+    }
+
+    // ======================================================================
+    // SEND TELEGRAM (Use common filters)
+    // ======================================================================
+    public static function sendMessageToTelegram(
+        string $botToken,
+        string $chatId,
+        string $message
+    ): array {
+        try {
+            $response = Http::post(
+                "https://api.telegram.org/bot{$botToken}/sendMessage",
+                [
+                    'chat_id'    => $chatId,
+                    'text'       => $message,
                     'parse_mode' => 'Markdown',
                 ]
             )->json();
