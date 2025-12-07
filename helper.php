@@ -337,6 +337,34 @@ if (!function_exists('zi_get_gravatar_url')) {
 }
 
 
+if (!function_exists('zi_generate_avatar')) {
+    function zi_generate_avatar($text, $size = 64): string
+    {
+        // Tạo hash từ text để xác định màu sắc cố định
+        $hash = md5($text);
+
+        // Tạo màu nền từ hash (lấy 6 ký tự đầu để tạo mã màu hex)
+        $bgColor = substr($hash, 0, 6);
+
+        // Chuyển đổi màu nền sang RGB
+        $r = hexdec(substr($bgColor, 0, 2));
+        $g = hexdec(substr($bgColor, 2, 2));
+        $b = hexdec(substr($bgColor, 4, 2));
+
+        // Tính toán màu văn bản tương phản (đen hoặc trắng)
+        // Dựa trên độ sáng của màu nền
+        $brightness = ($r * 299 + $g * 587 + $b * 114) / 1000;
+        $textColor = $brightness > 128 ? '000000' : 'ffffff';
+
+        // Mã hóa tên để sử dụng trong URL
+        $encodedText = urlencode($text);
+
+        // Trả về URL của avatar được tạo bởi ui-avatars.com
+        return "https://ui-avatars.com/api/?name={$encodedText}&size={$size}&background={$bgColor}&color={$textColor}";
+    }
+}
+
+
 
 
 
